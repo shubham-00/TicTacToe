@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>Tic-Tac-Toe</title>
+		<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+		<meta content="utf-8" http-equiv="encoding">
+		<style>
+			body
+			{
+				margin: 0;
+				padding: 0;
+			}
+			td
+			{
+				display: inline-block;
+				background-color: black;
+				height: 100px;
+				width: 100px;
+				margin: 5px;
+			}
+			#container
+			{
+				margin: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>Human vs Human</h1>
+		<div id="container" align=center>
+			<table>
+				<caption>Player <span id="turn">Green</span>'s turn</caption>
+				<tr>
+					<td id='b1' onclick="clicked('1');"></td>
+					<td id='b2' onclick="clicked('2');"></td>
+					<td id='b3' onclick="clicked('3');"></td>
+				</tr>
+				<tr>
+					<td id='b4' onclick="clicked('4');"></td>
+					<td id='b5' onclick="clicked('5')"></td>
+					<td id='b6' onclick="clicked('6')"></td>
+				</tr>
+				<tr>
+					<td id='b7' onclick="clicked('7');"></td>
+					<td id='b8' onclick="clicked('8');"></td>
+					<td id='b9' onclick="clicked('9');"></td>
+				</tr>
+			</table>
+			<span id="footer"></span>
+			<span id='result'></span>
+			<br>
+			<button onclick="restart()">Restart</button>
+		</div>
+		<script>
+			let ticks = 0;
+			let turn = "Green";
+			let player = 1;
+			let grid = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+			let play = true;
+			
+			function restart()
+			{
+				ticks = 0;
+				turn = "Green";
+				player = 1;
+				for(let i = 0; i < 10; i++)
+				grid[i] = 0;
+				play = true;
+				document.getElementById('footer').innerHTML = '';
+				document.getElementById('result').innerHTML = '';
+				document.getElementById('b1').style.background = 'black';
+				document.getElementById('b2').style.background = 'black';
+				document.getElementById('b3').style.background = 'black';
+				document.getElementById('b4').style.background = 'black';
+				document.getElementById('b5').style.background = 'black';
+				document.getElementById('b6').style.background = 'black';
+				document.getElementById('b7').style.background = 'black';
+				document.getElementById('b8').style.background = 'black';
+				document.getElementById('b9').style.background = 'black';
+			}
+			function clicked(gridIndex)
+			{
+				if(grid[Number(gridIndex)] == 0 && play)
+				{
+					grid[Number(gridIndex)] = player;
+					document.getElementById('b' + gridIndex).style.background = turn;
+					player = player == 1 ? 2 : 1;
+					turn = turn == 'Green' ? 'Red' : 'Green';
+					document.getElementById('footer').innerHTML = '';
+					document.getElementById('turn').innerHTML = turn;
+					ticks++;
+					if(ticks == 9)
+					{
+						document.getElementById('result').innerHTML = 'Game draw!';
+					}
+					if((grid[1] == 1 && grid[2] == 1 && grid[3] == 1) || (grid[4] == 1 && grid[5] == 1 && grid[6] == 1) || (grid[7] == 1 && grid[8] == 1 && grid[9] == 1) || (grid[1] == 1 && grid[4] == 1 && grid[7] == 1) || (grid[2] == 1 && grid[5] == 1 && grid[8] == 1) || (grid[3] == 1 && grid[6] == 1 && grid[9] == 1) || (grid[1] == 1 && grid[5] == 1 && grid[9] == 1) || (grid[3] == 1 && grid[5] == 1 && grid[7] == 1))
+					{
+						document.getElementById('result').innerHTML = 'Player Green won!';
+						play = false;
+					}
+					if((grid[1] == 2 && grid[2] == 2 && grid[3] == 2) || (grid[4] == 2 && grid[5] == 2 && grid[6] == 2) || (grid[7] == 2 && grid[8] == 2 && grid[9] == 2) || (grid[1] == 2 && grid[4] == 2 && grid[7] == 2) || (grid[2] == 2 && grid[5] == 2 && grid[8] == 2) || (grid[3] == 2 && grid[6] == 2 && grid[9] == 2) || (grid[1] == 2 && grid[5] == 2 && grid[9] == 2) || (grid[3] == 2 && grid[5] == 2 && grid[7] == 2))
+					{
+						document.getElementById('result').innerHTML = 'Player Red won!';
+						play = false;
+					}
+				}
+				else
+				{
+					document.getElementById('footer').innerHTML = 'Invalid move!';
+				}
+			}
+		</script>
+	</body>
+</html>
